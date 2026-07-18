@@ -1,0 +1,23 @@
+name: CI Process for Igor
+
+# Робот сработает каждый раз, когда ты отправляешь код в ветку main
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Шаг 1: Скачиваем твой код на виртуальную машину GitHub Actions
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    # Шаг 2: Устанавливаем Node.js и запускаем твой JS файл для проверки
+    - name: Run JavaScript file
+      run: node test2.js
+
+    # Шаг 3: Проверяем, собирается ли наш Docker-образ без ошибок
+    - name: Test Docker build
+      run: docker build -t test-app .
